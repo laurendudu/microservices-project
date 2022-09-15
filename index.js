@@ -15,7 +15,9 @@ app.get('/', (req, res) => {
 app.get('/word/', (req, res) => {
   words = ReadWords('data/liste_francais_utf8.txt')
   randomWord = generateRandomWord(words)
-  res.send(randomWord)
+  //res.send(randomWord)
+  res.sendFile(__dirname + '/public/templates/index.html')
+
 })
 
 // Setup static files
