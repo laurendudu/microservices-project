@@ -14,6 +14,8 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
 
+
+
 function ReadWords(filename) {
   const contents = readFileSync(filename, 'utf-8');
 
@@ -22,7 +24,6 @@ function ReadWords(filename) {
   return arr;
 }
 
-words = ReadWords('data/liste_francais_utf8.txt')
 
 const randomIndex = () => {
   const date = new Date();
@@ -31,7 +32,17 @@ const randomIndex = () => {
 
 
 function generateRandomWord(array) {
-  console.log(array[randomIndex()])
+  word = array[randomIndex()]
+  console.log(word)
+  
+  return word
 }
 
-generateRandomWord(words)
+
+words = ReadWords('data/liste_francais_utf8.txt')
+
+
+app.get('/word/', (req, res) => {
+  randomWord = generateRandomWord(words)
+  res.send(randomWord)
+})
