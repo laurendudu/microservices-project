@@ -1,0 +1,17 @@
+
+td {
+width: 30px;
+height: 30px;
+position: relative;
+
+outline: solid black 1px;
+
+text-align: center;
+text-transform: capitalize;
+}
+
+td:after {
+content: '';
+display: block;
+}
+

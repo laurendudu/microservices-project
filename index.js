@@ -4,10 +4,16 @@ const port = 3000
 
 const {readFileSync, promises: fsPromises} = require('fs');
 
+var words;
+var randomWord;
+
+
+// Setup static files
+app.use('/static', express.static('public'))
 
 // Main endpoint
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.sendFile(__dirname + '/public/templates/index.html')
 })
 
 
@@ -15,13 +21,9 @@ app.get('/', (req, res) => {
 app.get('/word/', (req, res) => {
   words = ReadWords('data/liste_francais_utf8.txt')
   randomWord = generateRandomWord(words)
-  //res.send(randomWord)
-  res.sendFile(__dirname + '/public/templates/index.html')
-
+  res.send(randomWord)
 })
 
-// Setup static files
-app.use('/static', express.static('public'))
 
 
 // 
