@@ -34,6 +34,12 @@ app.get('/port', (req, res) => {
 }
 )
 
+app.get('/wordlist/', (req, res) => {
+  words = ReadWords('data/liste_francais_utf8.txt')
+  res.send(words)
+})
+
+
 app.get("/health", (req, res) => {
   res.send("healthcheck")
 }

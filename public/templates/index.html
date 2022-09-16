@@ -7,23 +7,27 @@
 
 <body>
 
-    <h1>MOAT (Motus Of All Time)</h1>
+    <h1>Lettres de Folichon</h1>
 
 
-    <form id="word-input-form">
-        <label for="word-input">Input Word</label>
+    <form id="word-input-form" autocomplete="off">
+        <label for="word-input">C'est quoi pour toi la petite reponse?</label>
         <br>
-        <input type="text" id="word-input">
-        <input type="submit" value="send">
+        <input type="text" id="word-input" autocomplete="off">
+        <input type="submit" value="Essayer" id="button">
         
     </form>
 
     <div>
-        <table>
+        <table class="center">
             <tbody id="guessing">
 
             </tbody>
         </table>
+    </div>
+
+    <div id="message">
+
     </div>
 
 

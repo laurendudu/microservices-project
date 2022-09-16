@@ -1,13 +1,27 @@
 
 td {
-width: 30px;
-height: 30px;
+width: 50px;
+height: 50px;
 position: relative;
 
 outline: solid black 1px;
 
 text-align: center;
 text-transform: capitalize;
+
+font-family: monospace;
+font-size: 20px;
+
+}
+
+table { 
+    border-spacing: 10px;
+    border-collapse: separate;
+    color: #2d2d2d;
+}
+
+tr {
+    margin: 5px;
 }
 
 td:after {
@@ -15,3 +29,29 @@ content: '';
 display: block;
 }
 
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1 {
+    text-align: center;
+    font-family: monospace;
+    font-size: 50px;
+    color: #2d2d2d;
+}
+
+form, input, p {
+    text-align: center;
+    font-family: monospace;
+    font-size: 20px;
+    margin: 5px;
+    color: #2d2d2d;
+}
+
+span {
+    color: darkgreen;
+    font-weight: bold;
+    background-color: rgb(196, 233, 123);
+    padding: 2px;
+}
