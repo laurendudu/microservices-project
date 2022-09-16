@@ -68,9 +68,7 @@ const randomIndex = () => {
 
 // Generate random word from random index
 function generateRandomWord(array) {
-  word = array[randomIndex()]
-  console.log(word)
-  
+  word = array[randomIndex()]  
   return word
 }
 

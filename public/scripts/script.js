@@ -1,16 +1,16 @@
 const form  = document.getElementById('word-input-form');
 const input = document.getElementById('word-input');
 const guessingTable = document.getElementById('guessing')
-const port = process.env.PORT || 4000
-
 
 var guess;
 var word;
+var numberOfGuesses = 6;
+var rowNumber = 1;
 
-const numberOfGuesses = 6;
+var letters = [0, 0, 0, 0, 0, 0];
 
 // get the word from api
-fetch(port+'/word/')
+fetch('/word/')
 .then(response => {
     if(response.ok) {
         return response.text();
@@ -19,28 +19,9 @@ fetch(port+'/word/')
     if(text) {
         console.log(text);
         word = text;
-
         initGuessing(word);
     }
 }).catch(err => console.error(err));
-
-var numberOfGuesses = 6;
-var rowNumber = 1;
-
-var letters = [0, 0, 0, 0, 0, 0];
-
-// initialize the game
-fetch('http://localhost:3000/word/')
-    .then(response => {
-        if(response.ok) {
-            return response.text();
-        }
-    }).then(text => {
-        if(text) {
-            word = text;
-            initGuessing(word);
-        }
-    }).catch(err => console.error(err));
 
 
 // submit guess
@@ -50,7 +31,7 @@ form.addEventListener('submit', (event) => {
     guess = input.value;
 
     // get word
-    fetch('http://localhost:3000/word/')
+    fetch('/word/')
 .   then(response => {
         if(response.ok) {
             return response.text();
