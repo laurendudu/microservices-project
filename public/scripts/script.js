@@ -8,6 +8,8 @@ var word;
 var numberOfGuesses = 6;
 var rowNumber = 1;
 
+var letters = [0, 0, 0, 0, 0, 0];
+
 // initialize the game
 fetch('http://localhost:3000/word/')
     .then(response => {
@@ -56,7 +58,7 @@ function initGuessing(word) {
         for (letter = 0; letter < word.length; letter++) {
             var row = document.getElementById(`guess${g}`)
 
-            if (letter == 0) {
+            if (letter == 0 && g == 1) {
                 row.innerHTML += `<td id="g${g}l${letter}">${word[0]}</td>`
             } else {
                 row.innerHTML += `<td id="g${g}l${letter}"></td>`
@@ -71,6 +73,9 @@ function guessWord(guess, word) {
 
     var colors_array = []
 
+    letters[0] = word[0]
+    
+
     for (letter = 0; letter < guess.length; letter++) {
         var cell = document.getElementById(`g${rowNumber}l${letter}`) 
         cell.innerHTML = guess[letter]
@@ -78,6 +83,10 @@ function guessWord(guess, word) {
         if (guess[letter] == word[letter]) {
             cell.style.backgroundColor = "#6ca965"
             colors_array.push('yes')
+            if (letters[letter] == 0) {
+                letters[letter] = guess[letter]
+            }
+            
         } else if (word.includes(guess[letter])) {
             cell.style.backgroundColor = "#c8b653"
             colors_array.push('maybe')
@@ -87,16 +96,36 @@ function guessWord(guess, word) {
         }
     }
 
+    if (numberOfGuesses != 1) {
+        for (letter = 0; letter < letters.length; letter++) {
+            const cell = document.getElementById(`g${rowNumber + 1}l${letter}`)
+            if (letters[letter] != 0) {
+                cell.innerHTML = letters[letter]
+            } 
+        }
+    }
+
     if (new Set(colors_array).size == 1 && colors_array.length == word.length && colors_array[0] == "yes") {
         document.getElementById("button").disabled = true;
-        
-        var messageDiv = document.getElementById("message")
-        messageDiv.innerHTML = '<p>Congrats! You guessed the word of the day. Come back tomorrow :)</p>'
-    }
+        const messageDiv = document.getElementById("message")
+        messageDiv.innerHTML = '<p>Felicitations, reviens demain pour un max de fun.</p>'
+        for (letter = 0; letter < letters.length; letter++) {
+            var cell = document.getElementById(`g${rowNumber + 1}l${letter}`)
+            cell.innerHTML = ''
+        }
+    } 
 
     if (numberOfGuesses == 1) {
         document.getElementById("button").disabled = true;
+        if (letters.includes(0)) {
+            var messageDiv = document.getElementById("message")
+            messageDiv.innerHTML = "<p>T'es un peu nul.</p>"
+        }
     } 
+
+
+
+    
 
 
     console.log(numberOfGuesses);

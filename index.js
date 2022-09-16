@@ -24,6 +24,11 @@ app.get('/word/', (req, res) => {
   res.send(randomWord)
 })
 
+app.get('/wordlist/', (req, res) => {
+  words = ReadWords('data/liste_francais_utf8.txt')
+  res.send(words)
+})
+
 
 
 // 
