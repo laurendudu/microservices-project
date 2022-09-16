@@ -1,6 +1,8 @@
 const form  = document.getElementById('word-input-form');
 const input = document.getElementById('word-input');
 const guessingTable = document.getElementById('guessing')
+const port = process.env.PORT || 4000
+
 
 var guess;
 var word;
@@ -8,7 +10,7 @@ var word;
 const numberOfGuesses = 6;
 
 // get the word from api
-fetch('http://localhost:3000/word/')
+fetch(port+'/word/')
 .then(response => {
     if(response.ok) {
         return response.text();
