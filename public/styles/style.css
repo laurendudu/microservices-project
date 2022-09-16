@@ -17,6 +17,7 @@ font-size: 20px;
 table { 
     border-spacing: 10px;
     border-collapse: separate;
+    color: #2d2d2d;
 }
 
 tr {
@@ -31,12 +32,13 @@ display: block;
 .center {
     margin-left: auto;
     margin-right: auto;
-  }
+}
 
 h1 {
     text-align: center;
     font-family: monospace;
     font-size: 50px;
+    color: #2d2d2d;
 }
 
 form, input, p {
@@ -44,5 +46,12 @@ form, input, p {
     font-family: monospace;
     font-size: 20px;
     margin: 5px;
+    color: #2d2d2d;
 }
 
+span {
+    color: darkgreen;
+    font-weight: bold;
+    background-color: rgb(196, 233, 123);
+    padding: 2px;
+}

@@ -119,7 +119,7 @@ function guessWord(guess, word) {
         document.getElementById("button").disabled = true;
         if (letters.includes(0)) {
             var messageDiv = document.getElementById("message")
-            messageDiv.innerHTML = "<p>T'es un peu nul.</p>"
+            messageDiv.innerHTML = `<p>T'es un peu nul.</p> <p>La reponse etait <span>${word}</span>.</p>`
         }
     } 
 
