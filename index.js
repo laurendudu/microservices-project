@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
-const port = 3000
+const port = process.env.PORT || 4000
+const os = require("os");
 
 const {readFileSync, promises: fsPromises} = require('fs');
 
@@ -24,12 +25,25 @@ app.get('/word/', (req, res) => {
   res.send(randomWord)
 })
 
+app.get('/os', (req, res) => {
+  res.send(os.hostname() + " port " + port)
+}
+)
+app.get('/port', (req, res) => {
+  res.send("MOTUS APP Listening on port " + port)
+}
+)
+
 app.get('/wordlist/', (req, res) => {
   words = ReadWords('data/liste_francais_utf8.txt')
   res.send(words)
 })
 
 
+app.get("/health", (req, res) => {
+  res.send("healthcheck")
+}
+)
 
 // 
 app.listen(port, () => {

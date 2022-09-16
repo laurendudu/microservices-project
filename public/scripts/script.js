@@ -1,9 +1,28 @@
 const form  = document.getElementById('word-input-form');
 const input = document.getElementById('word-input');
 const guessingTable = document.getElementById('guessing')
+const port = process.env.PORT || 4000
+
 
 var guess;
 var word;
+
+const numberOfGuesses = 6;
+
+// get the word from api
+fetch(port+'/word/')
+.then(response => {
+    if(response.ok) {
+        return response.text();
+    }
+}).then(text => {
+    if(text) {
+        console.log(text);
+        word = text;
+
+        initGuessing(word);
+    }
+}).catch(err => console.error(err));
 
 var numberOfGuesses = 6;
 var rowNumber = 1;
