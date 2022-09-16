@@ -89,7 +89,9 @@ function guessWord(guess, word) {
 
     if (new Set(colors_array).size == 1 && colors_array.length == word.length && colors_array[0] == "yes") {
         document.getElementById("button").disabled = true;
-        window.alert("Congrats!")
+        
+        var messageDiv = document.getElementById("message")
+        messageDiv.innerHTML = '<p>Congrats! You guessed the word of the day. Come back tomorrow :)</p>'
     }
 
     if (numberOfGuesses == 1) {

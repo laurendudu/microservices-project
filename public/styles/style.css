@@ -38,9 +38,10 @@ h1 {
     font-family: monospace;
 }
 
-form, input {
+form, input, p {
     text-align: center;
     font-family: monospace;
     font-size: 20px;
+    margin: 5px;
 }
 
