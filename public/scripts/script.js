@@ -7,7 +7,10 @@ var word;
 var numberOfGuesses = 6;
 var rowNumber = 1;
 
-var letters = [0, 0, 0, 0, 0, 0];
+var letters = Array(50).fill(0);
+
+var wrong_letters = []
+
 
 // get the word from api
 fetch('/word/')
@@ -20,6 +23,8 @@ fetch('/word/')
         console.log(text);
         word = text;
         initGuessing(word);
+        initKeyboard();
+
     }
 }).catch(err => console.error(err));
 
@@ -86,13 +91,21 @@ function guessWord(guess, word) {
             if (letters[letter] == 0) {
                 letters[letter] = guess[letter]
             }
-            
+
+            keyboard_letter = document.getElementById(`${guess[letter]}`)
+            keyboard_letter.style.backgroundColor = "#6ca965"
         } else if (word.includes(guess[letter])) {
             cell.style.backgroundColor = "#c8b653"
             colors_array.push('maybe')
+
+            keyboard_letter = document.getElementById(`${guess[letter]}`)
+            keyboard_letter.style.backgroundColor = "#c8b653"
         } else {
             cell.style.backgroundColor = "#787c7f"
             colors_array.push('no')
+
+            keyboard_letter = document.getElementById(`${guess[letter]}`)
+            keyboard_letter.style.backgroundColor = "#787c7f"
         }
     }
 
@@ -122,11 +135,6 @@ function guessWord(guess, word) {
             messageDiv.innerHTML = `<p>T'es un peu nul.</p> <p>La reponse etait <span>${word}</span>.</p>`
         }
     } 
-
-
-
-    
-
 
     console.log(numberOfGuesses);
     numberOfGuesses--;
