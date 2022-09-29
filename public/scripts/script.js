@@ -124,6 +124,8 @@ function guessWord(guess, word) {
             var cell = document.getElementById(`g${rowNumber + 1}l${letter}`)
             cell.innerHTML = ''
         }
+
+        
     } 
 
     if (numberOfGuesses == 1) {

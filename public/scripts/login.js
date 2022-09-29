@@ -7,7 +7,12 @@ form.addEventListener("submit", (event) => {
     event.preventDefault();
     username = input.value;
 
-    localStorage.setItem('username', username)
-    document.location = "/" 
+    if (username != '') {
+        localStorage.setItem('username', username)
+        document.location = "/";
+        
+    } else {
+        window.alert("Please enter a valid username!");
+    }
 
 })  
