@@ -30,8 +30,8 @@ app.get('/login/', (req, res) => {
 })
 
 // score endpoint
-app.get('/score/', (req, res) => {
-  res.sendFile(__dirname + '/public/templates/score.html')
+app.get('/dashboard/', (req, res) => {
+  res.sendFile(__dirname + '/public/templates/dashboard.html')
 }
 )
 

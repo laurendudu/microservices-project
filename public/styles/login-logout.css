@@ -22,7 +22,6 @@
     font-weight: bold;
     background-color: rgb(196, 233, 123);
     padding: 2px;
-
 }
 
 .content {
@@ -34,7 +33,6 @@
     top: 0;
     bottom: 0;
     margin: auto;
-    /*Solves a problem in which the content is being cut when the div is smaller than its' wrapper:*/
     max-width: 100%;
     max-height: 100%;
     overflow: auto;
