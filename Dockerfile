@@ -1,11 +1,16 @@
 # syntax=docker/dockerfile:1
 
 FROM node:12.18.1
-ENV NODE_ENV=production
 
+# Create app directory
+WORKDIR .
 
-RUN npm install --production
+# Install app dependencies
+COPY package.json .
+
+RUN npm install
 
 COPY . .
 
+EXPOSE 4000
 CMD [ "node", "index.js" ]

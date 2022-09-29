@@ -20,7 +20,6 @@ fetch('/word/')
     }
 }).then(text => {
     if(text) {
-        console.log(text);
         word = text;
         initGuessing(word);
         initKeyboard();
@@ -136,7 +135,6 @@ function guessWord(guess, word) {
         }
     } 
 
-    console.log(numberOfGuesses);
     numberOfGuesses--;
     rowNumber++;
     

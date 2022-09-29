@@ -12,7 +12,6 @@ function initKeyboard() {
         const letters = rows[i - 1]
 
         for (const letter of letters) {
-            console.log(letter)
             row_html.innerHTML += `<td id="${letter}">${letter}</td>` 
         }
     }

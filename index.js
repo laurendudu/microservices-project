@@ -47,7 +47,7 @@ app.get("/health", (req, res) => {
 
 // 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`Sutom app listening on port ${port}`)
 })
 
 
