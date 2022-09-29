@@ -1,0 +1,8 @@
+version: '1.0'
+
+services:
+  sutom:
+    image: sutom
+    ports:
+      - "4000:4000"
+    restart: always
