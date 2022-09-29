@@ -17,13 +17,20 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/templates/index.html')
 })
 
-
 // Random word endpoint
 app.get('/word/', (req, res) => {
   words = ReadWords('data/liste_francais_utf8.txt')
   randomWord = generateRandomWord(words)
   res.send(randomWord)
 })
+
+// login endpoint
+app.get('/login/', (req, res) => {
+  res.sendFile(__dirname + '/public/templates/login.html')
+})
+
+
+
 
 app.get('/os', (req, res) => {
   res.send(os.hostname() + " port " + port)
@@ -33,12 +40,6 @@ app.get('/port', (req, res) => {
   res.send("MOTUS APP Listening on port " + port)
 }
 )
-
-app.get('/wordlist/', (req, res) => {
-  words = ReadWords('data/liste_francais_utf8.txt')
-  res.send(words)
-})
-
 
 app.get("/health", (req, res) => {
   res.send("healthcheck")

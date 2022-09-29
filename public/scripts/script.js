@@ -11,7 +11,6 @@ var letters = Array(50).fill(0);
 
 var wrong_letters = []
 
-
 // get the word from api
 fetch('/word/')
 .then(response => {
