@@ -1,6 +1,7 @@
 const form  = document.getElementById('word-input-form');
 const input = document.getElementById('word-input');
 const guessingTable = document.getElementById('guessing')
+const dashboard = document.getElementById('dashboard-btn');
 
 var guess;
 var word;
@@ -143,4 +144,9 @@ function guessWord(guess, word) {
     numberOfGuesses--;
     rowNumber++;   
 }
+
+// redirect user to dashboard
+dashboard.addEventListener('click', (event) => {
+    document.location = 'dashboard/'
+})
 

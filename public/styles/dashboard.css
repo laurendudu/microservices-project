@@ -1,0 +1,27 @@
+#backGame-btn, #dashboard-btn {
+    float:right;
+    height: 50px;
+    width: auto;
+
+    font-family: monospace;
+    font-size: 20px;
+
+    text-align: center;
+    text-transform: capitalize;
+
+    padding: 10px;
+    background-color: rgb(149, 202, 137);
+
+}
+
+h1, p {
+    font-family: monospace;
+    font-size: 30px;
+
+    text-align: center;
+    text-transform: capitalize;
+    margin: 20px;
+    color: #2d2d2d;
+}
+
+
