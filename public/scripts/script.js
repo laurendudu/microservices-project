@@ -7,6 +7,7 @@ var word;
 var numberOfGuesses = 6;
 var rowNumber = 1;
 
+
 var letters = Array(50).fill(0);
 
 var wrong_letters = []
@@ -120,9 +121,12 @@ function guessWord(guess, word) {
         document.getElementById("button").disabled = true;
         const messageDiv = document.getElementById("message")
         messageDiv.innerHTML = '<p>Felicitations, reviens demain pour un max de fun.</p>'
+
+        updateScore()
         for (letter = 0; letter < letters.length; letter++) {
             var cell = document.getElementById(`g${rowNumber + 1}l${letter}`)
             cell.innerHTML = ''
+
         }
 
         
@@ -137,7 +141,6 @@ function guessWord(guess, word) {
     } 
 
     numberOfGuesses--;
-    rowNumber++;
-    
+    rowNumber++;   
 }
 
