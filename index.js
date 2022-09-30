@@ -17,18 +17,21 @@ app.use('/static', express.static('public'))
 app.use(session({
   secret: "s3Cur3",   // holds the secret key
   name: "cookie", // 
-  resave: true,
+  resave: false,
 
 }))
+
+
 
 // Session information endpoint
 app.get('/session', (req, res) => {
   res.send(JSON.stringify(req.session))
-  
 })
+
 // Session information endpoint extra info
 app.get('/setsession', (req, res) => {
-  req.session.demo = "test"
+  username = req.query.username
+  req.session.user = username
   res.send(JSON.stringify(req.session))
   
 })
@@ -36,6 +39,8 @@ app.get('/setsession', (req, res) => {
 
 // Main endpoint
 app.get('/', (req, res) => {
+
+  
   res.sendFile(__dirname + '/public/templates/index.html')
 
 })
@@ -49,6 +54,7 @@ app.get('/word/', (req, res) => {
 
 // login endpoint
 app.get('/login/', (req, res) => {
+
   res.sendFile(__dirname + '/public/templates/login.html')
 })
 
