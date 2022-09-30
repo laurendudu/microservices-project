@@ -4,7 +4,7 @@ FROM node:12.18.1 as sutom
 WORKDIR .
 
 # Install app dependencies
-COPY package.json .
+COPY package*.json .
 RUN npm install
 
 COPY . .
@@ -19,7 +19,7 @@ FROM node:12.18.1 as score-api
 WORKDIR .
 
 # Install app dependencies
-COPY package.json .
+COPY package*.json .
 RUN npm install
 
 COPY score.js .
