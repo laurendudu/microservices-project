@@ -7,12 +7,25 @@ form.addEventListener("submit", (event) => {
     event.preventDefault();
     username = input.value;
 
-    if (username != '') {
-        localStorage.setItem('username', username)
-        document.location = "/";
-        
+    if (username == '') {
+        window.alert("Please enter a valid username!");    
     } else {
-        window.alert("Please enter a valid username!");
+        fetch('http://localhost:4500/checkUser/?username=' + username)
+        .then(response => {
+            if(response.ok) {
+                return response.text();
+            }
+        }).then(text => {
+            if(text) {
+                // if user exists
+                if (text == "true") {
+                    updateCookie(username);
+                    document.location = '/'
+                } else {
+                    window.alert("user does not exist! please register first!");
+                }
+            }
+        }).catch(err => console.error(err));
     }
+})
 
-})  

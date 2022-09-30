@@ -5,5 +5,6 @@ logout.addEventListener('click', (event) => {
     localStorage.removeItem("score")
     localStorage.removeItem("avg")
 
+    deleteCookie()
     document.location = '/login/'
 })
