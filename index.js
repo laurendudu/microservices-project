@@ -90,6 +90,16 @@ app.listen(port, () => {
   console.log(`Sutom app listening on port ${port}`)
 })
 
+
+// Check if user exists
+app.get('/checkUser/', (req, res) => {
+  var username = req.query.username
+  var password = req.query.password
+  var userBoolean = checkUser(username, password)
+  res.send(userBoolean)
+})
+
+
 // Read word array
 function ReadWords(filename) {
   const contents = readFileSync(filename, 'utf-8');
@@ -110,5 +120,22 @@ function generateRandomWord(array) {
 }
 
 
+function checkUser(username, password) {
+  const file = readFileSync('data/users.txt', 'utf-8');
+  const users = file.split(/\r?\n/);
 
+  if (users == ['']) {
+      return false
+  } else {
+      for (user of users) {
+          var username_db = user.split(';')[0];
+          var password_db = user.split(';')[1];
+          console.log(username_db)
+          if (username_db == username && password_db==password) {
+              return true
+          }
+      }
+  }
+  return false
+}
 

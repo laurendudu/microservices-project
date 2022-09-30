@@ -1,16 +1,20 @@
 const form = document.getElementById('login-form');
 const input = document.getElementById('username-input');
+const password_input = document.getElementById('username-pwd')
 
 
 form.addEventListener("submit", (event) => {
 
     event.preventDefault();
     username = input.value;
+    password = password_input.value;
 
     if (username == '') {
         window.alert("Please enter a valid username!");    
     } else {
-        fetch('http://localhost:4500/checkUser/?username=' + username)
+        fetch('/checkUser/?username=' + username
+        + "&password=" + password)
+    
         .then(response => {
             if(response.ok) {
                 return response.text();
@@ -18,6 +22,7 @@ form.addEventListener("submit", (event) => {
         }).then(text => {
             if(text) {
                 // if user exists
+                console.log(text)
                 if (text == "true") {
                     updateCookie(username);
                     document.location = '/'
