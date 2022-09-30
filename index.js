@@ -59,9 +59,7 @@ app.listen(port, () => {
 // Read word array
 function ReadWords(filename) {
   const contents = readFileSync(filename, 'utf-8');
-
   const arr = contents.split(/\r?\n/);
-
   return arr;
 }
 
