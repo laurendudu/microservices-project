@@ -150,28 +150,3 @@ function guessWord(guess, word) {
 dashboard.addEventListener('click', (event) => {
     document.location = 'dashboard/'
 })
-
-// update user score
-function updateScore() {
-    
-    var score = localStorage.getItem("score")
-    var avg = localStorage.getItem("avg")
-
-    if (score) {
-        score ++;
-        localStorage.setItem("score", score)
-
-        avg = Math.round(((((score - 1) * avg) + (6 - numberOfGuesses + 1)) / score) * 10, 1) / 10
-        localStorage.setItem("avg", avg)
-
-    } else {
-        score = 1;
-        avg = 6 - numberOfGuesses + 1
-        console.log(numberOfGuesses)
-        localStorage.setItem("score", score)
-        localStorage.setItem("avg", avg)
-    }
-
-}
-
-

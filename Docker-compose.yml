@@ -6,3 +6,8 @@ services:
     ports:
       - "4000:4000"
     restart: always
+  score-api:
+    image: score-api
+    ports:
+      - "4500:4500"
+    restart: always
