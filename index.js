@@ -21,8 +21,6 @@ app.use(session({
 
 }))
 
-
-
 // Session information endpoint
 app.get('/session', (req, res) => {
   res.send(JSON.stringify(req.session))
@@ -31,18 +29,25 @@ app.get('/session', (req, res) => {
 // Session information endpoint extra info
 app.get('/setsession', (req, res) => {
   username = req.query.username
-  req.session.user = username
+  req.session.username = username
   res.send(JSON.stringify(req.session))
   
+})
+
+// logout
+app.get('/logout', (req, res) => {
+  req.session.destroy()
+  res.send()
 })
 
 
 // Main endpoint
 app.get('/', (req, res) => {
-
-  
-  res.sendFile(__dirname + '/public/templates/index.html')
-
+  if (req.session.username) {
+    res.sendFile(__dirname + '/public/templates/index.html')
+  } else {
+    res.redirect("/login")
+  }
 })
 
 // Random word endpoint
@@ -54,8 +59,11 @@ app.get('/word/', (req, res) => {
 
 // login endpoint
 app.get('/login/', (req, res) => {
-
-  res.sendFile(__dirname + '/public/templates/login.html')
+  if (req.session.username) {
+    res.redirect("/")
+  } else {
+    res.sendFile(__dirname + '/public/templates/login.html')
+  }
 })
 
 
@@ -68,23 +76,19 @@ app.get('/dashboard/', (req, res) => {
 
 app.get('/os', (req, res) => {
   res.send(os.hostname() + " port " + port)
-}
-)
+})
+
 app.get('/port', (req, res) => {
   res.send("MOTUS APP Listening on port " + port)
-}
-)
+})
 
 app.get("/health", (req, res) => {
   res.send("healthcheck")
-}
-)
+})
 
-// 
 app.listen(port, () => {
   console.log(`Sutom app listening on port ${port}`)
 })
-
 
 // Read word array
 function ReadWords(filename) {

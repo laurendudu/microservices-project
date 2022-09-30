@@ -20,6 +20,7 @@ form.addEventListener("submit", (event) => {
                 // if user exists
                 if (text == "true") {
                     updateCookie(username);
+                    document.location = '/'
                 } else {
                     window.alert("user does not exist! please register first!");
                 }

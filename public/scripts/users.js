@@ -46,5 +46,9 @@ function storeUser(username) {
 }
 
 function updateCookie(username) {
-   fetch('http://localhost:4000/setsession/?username=' + username)
+   fetch('/setsession/?username=' + username)
+}
+
+function deleteCookie() {
+    fetch('/logout/');
 }
