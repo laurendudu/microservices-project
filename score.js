@@ -18,12 +18,7 @@ app.use((req, res, next) => {
     next();
 })
 
-// Check if user exists
-app.get('/checkUser/', (req, res) => {
-    var username = req.query.username
-    var userBoolean = checkUser(username)
-    res.send(userBoolean)
-  })
+
 
 // Get user data
 app.get('/getUser/', (req, res) => {
@@ -57,28 +52,10 @@ app.listen(port, () => {
   })
   
 
-function checkUser(username) {
-    const file = readFileSync('data/users.txt', 'utf-8');
-    const users = file.split(/\r?\n/);
 
-    console.log(users)
-
-    if (users == ['']) {
-        return false
-    } else {
-        for (user of users) {
-            var username_db = user.split(';')[0];
-            console.log(username_db)
-            if (username_db == username) {
-                return true
-            }
-        }
-    }
-    return false
-}
 
 function getUser(username) {
-    const file = readFileSync('data/users.txt', 'utf-8');
+    const file = readFileSync('data/score.txt', 'utf-8');
     const users = file.split(/\r?\n/);
 
     for (user of users) {
@@ -93,7 +70,7 @@ function initializeUser(username) {
     let currentDate = new Date()
     currentDate = currentDate.toISOString().split('T')[0]
 
-    fs.appendFile('data/users.txt', `\n${username};0;0;${currentDate};false`, function (err) {
+    fs.appendFile('data/score.txt', `\n${username};0;0;${currentDate};false`, function (err) {
         if (err) {
             // append failed
         } else {
@@ -103,7 +80,7 @@ function initializeUser(username) {
 }
 
 function updateUser(username, score, avg, date, boolean) {
-    const file = readFileSync('data/users.txt', 'utf-8');
+    const file = readFileSync('data/score.txt', 'utf-8');
     const users = file.split(/\r?\n/);
 
     for (user of users) {
@@ -115,7 +92,7 @@ function updateUser(username, score, avg, date, boolean) {
     }
 
     var usersString = users.join('\n')
-    fs.writeFile('data/users.txt', usersString, function (err) {
+    fs.writeFile('data/score.txt', usersString, function (err) {
         if (err) {
             // append failed
         } else {
@@ -123,3 +100,6 @@ function updateUser(username, score, avg, date, boolean) {
         }
     })
 }
+
+
+
