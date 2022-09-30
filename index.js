@@ -66,6 +66,10 @@ app.get('/login/', (req, res) => {
   }
 })
 
+// get username
+app.get('/getUsername/', (req, res) => {
+  res.send(req.session.username)
+})
 
 // score endpoint
 app.get('/dashboard/', (req, res) => {
