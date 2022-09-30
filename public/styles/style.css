@@ -37,6 +37,7 @@ display: block;
 
 h1 {
     text-align: center;
+    margin-left: 300px;
     font-family: monospace;
     font-size: 50px;
     color: #2d2d2d;

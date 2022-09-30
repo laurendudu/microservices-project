@@ -14,7 +14,7 @@
 
 }
 
-h1, p {
+#avg, #score {
     font-family: monospace;
     font-size: 30px;
 
@@ -24,4 +24,17 @@ h1, p {
     color: #2d2d2d;
 }
 
+#dashboard-title {
+    font-family: monospace;
+    font-size: 50px;
 
+    text-align: center;
+    text-transform: capitalize;
+    margin: 20px;
+    color: #2d2d2d;
+}
+
+
+#values {
+    margin-top: 20%;
+}
