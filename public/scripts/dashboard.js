@@ -10,29 +10,6 @@ backGame.addEventListener('click', (event) => {
     document.location = '/'
 })
 
-// update user score
-function updateScore() {
-    
-    var score = localStorage.getItem("score")
-    var avg = localStorage.getItem("avg")
-
-    if (score) {
-        score ++;
-        localStorage.setItem("score", score)
-
-        avg = (((score - 1) * avg) + (6 - numberOfGuesses + 1)) / score
-        localStorage.setItem("avg", avg)
-
-    } else {
-        score = 1;
-        avg = 6 - numberOfGuesses + 1
-        console.log(numberOfGuesses)
-        localStorage.setItem("score", score)
-        localStorage.setItem("avg", avg)
-    }
-
-}
-
 // display score to html
 if (score) {
     score_html.innerHTML = `Number of words guessed: ${score}`;
