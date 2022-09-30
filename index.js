@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const port = process.env.PORT || 4000
 const os = require("os");
+const session = require("express-session")
 
 const {readFileSync, promises: fsPromises} = require('fs');
 
@@ -12,9 +13,36 @@ var randomWord;
 // Setup static files
 app.use('/static', express.static('public'))
 
+// Setup session
+app.use(session({
+  secret: "s3Cur3",   // holds the secret key
+  name: "cookie", // 
+  resave: false,
+
+}))
+
+
+
+// Session information endpoint
+app.get('/session', (req, res) => {
+  res.send(JSON.stringify(req.session))
+})
+
+// Session information endpoint extra info
+app.get('/setsession', (req, res) => {
+  username = req.query.username
+  req.session.user = username
+  res.send(JSON.stringify(req.session))
+  
+})
+
+
 // Main endpoint
 app.get('/', (req, res) => {
+
+  
   res.sendFile(__dirname + '/public/templates/index.html')
+
 })
 
 // Random word endpoint
@@ -26,8 +54,10 @@ app.get('/word/', (req, res) => {
 
 // login endpoint
 app.get('/login/', (req, res) => {
+
   res.sendFile(__dirname + '/public/templates/login.html')
 })
+
 
 // score endpoint
 app.get('/dashboard/', (req, res) => {
