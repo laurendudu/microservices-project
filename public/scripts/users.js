@@ -1,33 +1,32 @@
-// update user score
-function updateScore() {
-
-    var username = localStorage.getItem('username')
-    var score = localStorage.getItem('score')
-    var avg = localStorage.getItem('avg')
-    let currentDate = new Date()
-    currentDate = currentDate.toISOString().split('T')[0]
-
-    if (score != 0) {
-        score ++;
-        avg = Math.round(((((score - 1) * avg) + (6 - numberOfGuesses + 1)) / score) * 10, 1) / 10
-        localStorage.setItem("score", score)
-        localStorage.setItem("avg", avg)
-    
-    } else {
-        score = 1;
-        avg = 6 - numberOfGuesses + 1
-        localStorage.setItem("score", score)
-        localStorage.setItem("avg", avg)
-    }
-    
-    fetch('http://localhost:4500/updateUser/?username=' + username 
-        + '&score=' + score
-        + '&avg=' + avg
-        + '&date=' + currentDate
-        + '&boolean=' + true)
+function updateSession(username) {
+   fetch('/setsession/?username=' + username)
 }
 
-function storeUser(username) {
+function deleteSession() {
+    fetch('/logout/');
+}
+
+// function that calls the username
+function getUsernameData(option) {
+    fetch('/getUsername/')
+    .then(response => {
+        if(response.ok) {
+            return response.text();
+        }
+    }).then(text => {
+        if(text) {
+            if (option == 'dashboard') {
+                getData(text, option);
+            } else if (option == 'score') {
+                getData(text, option)
+            }
+        }
+    }).catch(err => console.error(err));
+}
+
+// function that calls the data from the username
+function getData(username, option) {
+    // display dashboard
     fetch('http://localhost:4500/getUser/?username=' + username)
     .then(response => {
         if(response.ok) {
@@ -35,20 +34,17 @@ function storeUser(username) {
         }
     }).then(text => {
         if(text) {
-            var user = text.split(';');
-            localStorage.setItem("username", user[0]);
-            localStorage.setItem("score", user[1]);
-            localStorage.setItem("avg", user[2]);
-            localStorage.setItem("date", user[3]);
-            localStorage.setItem("boolean", user[4]);
+            var username = text.split(";")[0]
+            var score = text.split(";")[1]
+            var avg = text.split(";")[2]
+            var date = text.split(";")[3]
+            var boolean = text.split(";")[4]
+
+            if (option == 'dashboard') {
+                displayDashboard(score, avg)
+            } else if (option == 'score') {
+                updateScore(username, score, avg)
+            }
         }
     }).catch(err => console.error(err));
-}
-
-function updateCookie(username) {
-   fetch('/setsession/?username=' + username)
-}
-
-function deleteCookie() {
-    fetch('/logout/');
 }

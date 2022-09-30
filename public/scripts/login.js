@@ -24,7 +24,7 @@ form.addEventListener("submit", (event) => {
                 // if user exists
                 console.log(text)
                 if (text == "true") {
-                    updateCookie(username);
+                    updateSession(username);
                     document.location = '/'
                 } else {
                     window.alert("user does not exist! please register first!");
