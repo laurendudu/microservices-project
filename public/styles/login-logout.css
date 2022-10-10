@@ -1,11 +1,12 @@
-#login-form, #logout, #submit-login, #label-login, #submit-btn {
+#login-form, #logout, #submit-login, #label-login, #submit-btn { 
     font-family: monospace;
     font-size: 30px;
 
     text-align: center;
     text-transform: capitalize;
-    margin: 20px;
+    margin-top: 20px;
     color: #2d2d2d;
+
 }
 
 #login-form {
@@ -52,5 +53,31 @@
 
     padding: 10px;
     background-color: rgb(149, 202, 137);
+
+}
+
+
+button.buttonStyle {
+    text-transform: capitalize;
+    font-family: monospace;
+    font-size: 15px;
+    text-align: center;
+    margin-top: 20px;
+    width: 100px;
+    height: 30px;
+    border-radius: 10px;
+    background-color: white;
+}
+
+
+#submit-login {
+    text-transform: capitalize;
+    font-size: 15px;
+    text-align: center;
+    margin-top: 20px;
+    width: 100px;
+    height: 30px;
+    border-radius: 10px;
+    background-color: white;
 
 }

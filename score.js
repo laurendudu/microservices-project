@@ -34,6 +34,14 @@ app.get('/initializeUser/', (req, res) => {
     res.send(user)
   })
 
+// Register user information
+app.get('/userRegistration/', (req, res) => {
+    var username = req.query.username
+    var password = req.query.password
+    var user = userRegistration(username, password)
+    res.send(user)
+  })
+
 // Update user data
 app.get('/updateUser/', (req, res) => {
     var username = req.query.username
@@ -78,6 +86,20 @@ function initializeUser(username) {
         }
     })
 }
+
+
+function userRegistration(username, password) {
+    fs.appendFileSync('data/users.txt', `\n${username};${password}`, function(err){
+        if (err){
+            //alert
+        } else{
+            //done
+        }
+    }
+    
+    )
+}
+
 
 function updateUser(username, score, avg, date, boolean) {
     const file = readFileSync('data/score.txt', 'utf-8');
