@@ -25,6 +25,7 @@ form_btn.addEventListener("click", (event) => {
                 console.log(text)
                 if (text == "user can login") {
                     updateCookie(username);
+
                     document.location = '/'
                 } else {
                     window.alert("user does not exist! please register first!");

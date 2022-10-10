@@ -124,7 +124,7 @@ function guessWord(guess, word) {
         const messageDiv = document.getElementById("message")
         messageDiv.innerHTML = '<p>Felicitations, reviens demain pour un max de fun.</p>'
 
-        updateScore()
+        getUsernameData('score'); 
         for (letter = 0; letter < letters.length; letter++) {
             var cell = document.getElementById(`g${rowNumber + 1}l${letter}`)
             cell.innerHTML = ''
@@ -150,3 +150,23 @@ function guessWord(guess, word) {
 dashboard.addEventListener('click', (event) => {
     document.location = 'dashboard/'
 })
+
+// update user score
+function updateScore(username, score, avg) {
+    let currentDate = new Date()
+    currentDate = currentDate.toISOString().split('T')[0]
+
+    if (score != 0) {
+        score ++;
+        avg = Math.round(((((score - 1) * avg) + (6 - numberOfGuesses + 1)) / score) * 10, 1) / 10
+    } else {
+        score = 1;
+        avg = 6 - numberOfGuesses + 1
+    }
+    
+    fetch('http://localhost:4500/updateUser/?username=' + username 
+        + '&score=' + score
+        + '&avg=' + avg
+        + '&date=' + currentDate
+        + '&boolean=' + true)
+}
