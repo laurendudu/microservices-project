@@ -1,12 +1,12 @@
-const form = document.getElementById('login-form');
-const input = document.getElementById('username-input');
-const password_input = document.getElementById('username-pwd')
+const form_btn = document.getElementById('submit-login');
+const username_input = document.getElementById('username-input');
+const password_input = document.getElementById('username-pwd');
 
 
-form.addEventListener("submit", (event) => {
+form_btn.addEventListener("click", (event) => {
 
     event.preventDefault();
-    username = input.value;
+    username = username_input.value;
     password = password_input.value;
 
     if (username == '') {
@@ -23,8 +23,9 @@ form.addEventListener("submit", (event) => {
             if(text) {
                 // if user exists
                 console.log(text)
-                if (text == "true") {
-                    updateSession(username);
+                if (text == "user can login") {
+                    updateCookie(username);
+
                     document.location = '/'
                 } else {
                     window.alert("user does not exist! please register first!");

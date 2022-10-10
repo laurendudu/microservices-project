@@ -63,7 +63,7 @@ app.get('/login/', (req, res) => {
     res.redirect("/")
   } else {
     res.sendFile(__dirname + '/public/templates/login.html')
-  }
+  } 
 })
 
 // get username
@@ -95,7 +95,7 @@ app.listen(port, () => {
 })
 
 
-// Check if user exists
+// Check if user exists for login
 app.get('/checkUser/', (req, res) => {
   var username = req.query.username
   var password = req.query.password
@@ -103,6 +103,12 @@ app.get('/checkUser/', (req, res) => {
   res.send(userBoolean)
 })
 
+// Check if user exists to create new user
+app.get('/checkNewUser/', (req, res) => {
+  var username = req.query.username
+  var userBoolean = checkNewUser(username, password)
+  res.send(userBoolean)
+})
 
 // Read word array
 function ReadWords(filename) {
@@ -128,18 +134,23 @@ function checkUser(username, password) {
   const file = readFileSync('data/users.txt', 'utf-8');
   const users = file.split(/\r?\n/);
 
+
   if (users == ['']) {
       return false
   } else {
       for (user of users) {
           var username_db = user.split(';')[0];
           var password_db = user.split(';')[1];
-          console.log(username_db)
           if (username_db == username && password_db==password) {
-              return true
+              return 'user can login'
+          } else if (username_db==username){
+            return 'user already exists'
           }
       }
   }
   return false
 }
+
+
+
 
