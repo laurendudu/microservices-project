@@ -38,8 +38,9 @@ app.get('/initializeUser/', (req, res) => {
 app.get('/userRegistration/', (req, res) => {
     var username = req.query.username
     var password = req.query.password
-    var user = userRegistration(username, password)
-    res.send(user)
+    userRegistration(username, password)
+    initializeUser(username)
+    res.send()
   })
 
 // Update user data
@@ -52,6 +53,14 @@ app.get('/updateUser/', (req, res) => {
     
     updateUser(username, score, avg, date, boolean)
     res.send()
+  })
+
+// Check if user exists for login
+app.get('/checkUser/', (req, res) => {
+    var username = req.query.username
+    var password = req.query.password
+    var userBoolean = checkUser(username, password)
+    res.send(userBoolean)
   })
 
 
@@ -95,9 +104,7 @@ function userRegistration(username, password) {
         } else{
             //done
         }
-    }
-    
-    )
+    })
 }
 
 
@@ -123,5 +130,28 @@ function updateUser(username, score, avg, date, boolean) {
     })
 }
 
+function checkUser(username, password) {
+    const file = readFileSync('data/users.txt', 'utf-8');
+    const users = file.split(/\r?\n/);
+  
+    
+    if (users == ['']) {
+        return false
+    } else {
+        for (user of users) {
+            var username_db = user.split(';')[0];
+            var password_db = user.split(';')[1];
+            console.log(username_db)
+            console.log(password_db)
+            if (username_db == username && password_db==password) {
+                return 'user can login'
+            } else if (username_db==username){
+              return 'user already exists'
+            }
+        }
+    }
+    return false
+  }
+  
 
 

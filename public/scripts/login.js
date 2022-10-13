@@ -12,7 +12,7 @@ form_btn.addEventListener("click", (event) => {
     if (username == '') {
         window.alert("Please enter a valid username!");    
     } else {
-        fetch('/checkUser/?username=' + username
+        fetch('http://localhost:4500/checkUser/?username=' + username
         + "&password=" + password)
     
         .then(response => {
@@ -25,10 +25,10 @@ form_btn.addEventListener("click", (event) => {
                 console.log(text)
                 if (text == "user can login") {
                     updateCookie(username);
-
-                    document.location = '/'
+                } else if (text == "user already exists") {
+                    window.alert("The entered password is incorrect!");
                 } else {
-                    window.alert("user does not exist! please register first!");
+                    window.alert("The entered username does not exist! Please register first.");
                 }
             }
         }).catch(err => console.error(err));

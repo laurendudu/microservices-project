@@ -48,3 +48,18 @@ function getData(username, option) {
         }
     }).catch(err => console.error(err));
 }
+
+function updateCookie(username) {
+    fetch('/setsession/?username=' + username)
+    .then(response => {
+        if(response.ok) {
+            return response.text();
+        }
+    }).then(() => {
+        document.location = '/'
+    }).catch(err => console.error(err));
+}
+
+function deleteCookie() {
+    fetch('/logout/');
+}

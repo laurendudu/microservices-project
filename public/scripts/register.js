@@ -17,7 +17,7 @@ register_btn.addEventListener("click", () => {
     } else if (password =='') {
         window.alert('Please enter your password!')
     } else {
-        fetch('/checkUser/?username='+ username + "&password=" + password)
+        fetch('http://localhost:4500/checkUser/?username='+ username + "&password=" + password)
         .then(response => {
             if(response.ok) {
                 return response.text();
@@ -27,18 +27,15 @@ register_btn.addEventListener("click", () => {
                 console.log(text)
                 if (text == "user already exists") {
                     window.alert("Please chose another username!")
+                } else if (text == "user can login") {
+                    window.alert("User already exists! Please login.")
                 } else if (text == "false") {
-                    console.log('flskj')
                     updateCookie(username)
-
                     fetch('http://localhost:4500/userRegistration/?username=' + username
                     + "&password=" + password)
-
-                    window.alert('registration successfull');
                 }
-
             }
-        } ) 
-    }  }
+        }) 
+    }}
     
 )

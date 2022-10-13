@@ -17,7 +17,8 @@ app.use('/static', express.static('public'))
 app.use(session({
   secret: "s3Cur3",   // holds the secret key
   name: "cookie", // 
-  resave: false,
+  resave: true,
+  saveUninitialized: true
 
 }))
 
@@ -94,22 +95,6 @@ app.listen(port, () => {
   console.log(`Sutom app listening on port ${port}`)
 })
 
-
-// Check if user exists for login
-app.get('/checkUser/', (req, res) => {
-  var username = req.query.username
-  var password = req.query.password
-  var userBoolean = checkUser(username, password)
-  res.send(userBoolean)
-})
-
-// Check if user exists to create new user
-app.get('/checkNewUser/', (req, res) => {
-  var username = req.query.username
-  var userBoolean = checkNewUser(username, password)
-  res.send(userBoolean)
-})
-
 // Read word array
 function ReadWords(filename) {
   const contents = readFileSync(filename, 'utf-8');
@@ -127,28 +112,6 @@ const randomIndex = () => {
 function generateRandomWord(array) {
   word = array[randomIndex()]  
   return word
-}
-
-
-function checkUser(username, password) {
-  const file = readFileSync('data/users.txt', 'utf-8');
-  const users = file.split(/\r?\n/);
-
-
-  if (users == ['']) {
-      return false
-  } else {
-      for (user of users) {
-          var username_db = user.split(';')[0];
-          var password_db = user.split(';')[1];
-          if (username_db == username && password_db==password) {
-              return 'user can login'
-          } else if (username_db==username){
-            return 'user already exists'
-          }
-      }
-  }
-  return false
 }
 
 
