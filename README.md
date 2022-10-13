@@ -95,5 +95,25 @@ sequenceDiagram
         end
     end
 
-    Client ->> Score API: /updateUser
+    Client ->> Motus: /getUsername
+    Motus -->> Client: username
+    Client ->> Score API: /getUser/?username=username
+    Score API -->> Client: user data
+    Client -->> Client: update user data
+    Client ->> Score API: /updateUser/?data=data
+```
+
+### Sequence Diagram: the Dashboard
+```mermaid
+sequenceDiagram
+    note right of Client: Accessing the dashboard
+
+    Client ->> Motus: /dashboard
+    Motus ->> Client: dashboard.html
+
+    Client ->> Motus: /getUsername
+    Motus -->> Client: username
+    Client ->> Score API: /getUser/?username=username
+    Score API -->> Client: user data
+    Client -->> Client: display user data
 ```
