@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const port = process.env.PORT || 4500
 const os = require("os");
+const { createHash } = require('crypto');
 
 const {readFileSync, promises: fsPromises} = require('fs');
 var fs = require('fs')
@@ -98,7 +99,8 @@ function initializeUser(username) {
 
 
 function userRegistration(username, password) {
-    fs.appendFileSync('data/users.txt', `\n${username};${password}`, function(err){
+    const safe_password = hashPassword(password)
+    fs.appendFileSync('data/users.txt', `\n${username};${safe_password}`, function(err){
         if (err){
             //alert
         } else{
@@ -134,6 +136,7 @@ function checkUser(username, password) {
     const file = readFileSync('data/users.txt', 'utf-8');
     const users = file.split(/\r?\n/);
   
+    const safe_password = hashPassword(password)
     
     if (users == ['']) {
         return false
@@ -141,9 +144,7 @@ function checkUser(username, password) {
         for (user of users) {
             var username_db = user.split(';')[0];
             var password_db = user.split(';')[1];
-            console.log(username_db)
-            console.log(password_db)
-            if (username_db == username && password_db==password) {
+            if (username_db == username && password_db==safe_password) {
                 return 'user can login'
             } else if (username_db==username){
               return 'user already exists'
@@ -153,5 +154,9 @@ function checkUser(username, password) {
     return false
   }
   
+
+function hashPassword(password) {
+return createHash('sha256').update(password).digest('hex');
+}
 
 
