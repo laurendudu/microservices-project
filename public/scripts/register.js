@@ -33,6 +33,7 @@ register_btn.addEventListener("click", () => {
                     updateCookie(username)
                     fetch('http://localhost:4500/userRegistration/?username=' + username
                     + "&password=" + password)
+                    
                 }
             }
         }) 
