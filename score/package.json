@@ -1,5 +1,5 @@
 {
-  "name": "myproject",
+  "name": "score-api",
   "version": "1.0.0",
   "description": "Final project for micro services class.",
   "main": "index.js",

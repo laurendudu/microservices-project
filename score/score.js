@@ -31,7 +31,7 @@ app.get('/getUser/', (req, res) => {
 app.get('/initializeUser/', (req, res) => {
     var username = req.query.username
     var user = initializeUser(username)
-    res.send(user)
+    res.send(username)
   })
 
 // Register user information
