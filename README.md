@@ -65,7 +65,9 @@ The backend is located in `index.js`, where all the endpoints are defined:
 - `docker-compose up -d`
 - go to `localhost:4000`
 
-## Mermaid Schematic Diagrams
+## Schematic Diagrams ((Mermaid.js)[https://mermaid-js.github.io/])
+
+### Sequence Diagram: Playing the game
 
 ```mermaid
 sequenceDiagram
