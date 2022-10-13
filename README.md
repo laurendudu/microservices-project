@@ -64,3 +64,34 @@ The backend is located in `index.js`, where all the endpoints are defined:
 - `docker build --tag sutom .`
 - `docker-compose up -d`
 - go to `localhost:4000`
+
+## Mermaid Schematic Diagrams
+
+```mermaid
+sequenceDiagram
+    note right of Client: Playing the game
+    Client ->> Motus: /word
+    Motus -->> Client: word
+    Client ->> Client: initGuessing(word)
+    Client ->> Client: initKeyboard()
+
+    loop While guessing
+        Client ->> Motus: /word
+        Motus -->> Client: word
+        alt Guess does not have the right amount of letters
+            Client --> Client: Alert error
+        else Guess has the correct amount of letters
+            Client ->> Client: guessWord(guess, word)
+            Client -->> Client: check if the guess is correct
+            Client -->> Client: Update HTML and CSS (guessing grid/colors)
+        end 
+
+        alt Guess is correct
+            Client --> Client: Alert success message
+        else No guesses left
+            Client --> Client: Alert fail message and answer
+        end
+    end
+
+    Client ->> Score API: /updateUser
+```
