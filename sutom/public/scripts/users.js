@@ -17,7 +17,7 @@ function getUsernameData(option) {
         if(text) {
             if (option == 'dashboard') {
                 getData(text, option);
-            } else if (option == 'score') {
+            } else if (option.includes('score')) {
                 getData(text, option)
             }
         }
@@ -42,8 +42,8 @@ function getData(username, option) {
 
             if (option == 'dashboard') {
                 displayDashboard(score, avg)
-            } else if (option == 'score') {
-                updateScore(username, score, avg)
+            } else if (option.includes('score')) {
+                updateScore(option, username, score, avg)
             }
         }
     }).catch(err => console.error(err));
