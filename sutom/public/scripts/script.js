@@ -15,19 +15,48 @@ var letters = Array(50).fill(0);
 var wrong_letters = []
 
 // get the word from api
-fetch('/word/')
+fetch('/getUsername/')
 .then(response => {
     if(response.ok) {
         return response.text();
     }
 }).then(text => {
-    if(text) {
-        word = text;
-        initGuessing(word);
-        initKeyboard();
 
-    }
-}).catch(err => console.error(err));
+    fetch('http://localhost:4500/getUser/?username=' + text)
+    .then(response => {
+        if(response.ok) {
+            return response.text();
+        }
+    }).then(text => {
+        if(text) {
+            boolean = text.split(";")[4]
+            
+            fetch('/word/')
+            .then(response => {
+                if(response.ok) {
+                    return response.text();
+                }
+            }).then(text => {
+                if(text) {
+                    word = text;
+                    if (boolean == 'false') {      
+                        initGuessing(word);
+                        initKeyboard();
+                    } else{
+                        messageDiv = document.getElementById("message")
+                        messageDiv.innerHTML = `<p>La reponse etait <span>${word}</span>, reviens demain pour un max de fun.</p>`
+                        document.getElementById("button").disabled = true;
+                    }
+                }
+            }).catch(err => console.error(err));
+
+
+        }}).catch(err => console.error(err));
+
+}).catch(err => console.error(err))
+
+
+
 
 
 // submit guess
@@ -124,7 +153,7 @@ function guessWord(guess, word) {
         const messageDiv = document.getElementById("message")
         messageDiv.innerHTML = '<p>Felicitations, reviens demain pour un max de fun.</p>'
 
-        getUsernameData('score'); 
+        getUsernameData('score-win'); 
         for (letter = 0; letter < letters.length; letter++) {
             var cell = document.getElementById(`g${rowNumber + 1}l${letter}`)
             cell.innerHTML = ''
@@ -139,6 +168,7 @@ function guessWord(guess, word) {
         if (letters.includes(0)) {
             var messageDiv = document.getElementById("message")
             messageDiv.innerHTML = `<p>T'es un peu nul.</p> <p>La reponse etait <span>${word}</span>.</p>`
+            getUsernameData('score-loose');
         }
     } 
 
@@ -152,21 +182,24 @@ dashboard.addEventListener('click', (event) => {
 })
 
 // update user score
-function updateScore(username, score, avg) {
+function updateScore(option, username, score, avg) {
+    console.log('loool')
     let currentDate = new Date()
     currentDate = currentDate.toISOString().split('T')[0]
 
-    if (score != 0) {
-        score ++;
-        avg = Math.round(((((score - 1) * avg) + (6 - numberOfGuesses + 1)) / score) * 10, 1) / 10
-    } else {
-        score = 1;
-        avg = 6 - numberOfGuesses + 1
+    if (option.includes('win')) {
+        if (score != 0) {
+            score ++;
+            avg = Math.round(((((score - 1) * avg) + (6 - numberOfGuesses + 1)) / score) * 10, 1) / 10
+        } else {
+            score = 1;
+            avg = 6 - numberOfGuesses + 1
+        }
     }
     
     fetch('http://localhost:4500/updateUser/?username=' + username 
         + '&score=' + score
         + '&avg=' + avg
         + '&date=' + currentDate
-        + '&boolean=' + true)
+        + '&boolean=' + true).catch(err => console.error(err));
 }
