@@ -133,6 +133,9 @@ The **score** is the number of won games, **average** is the average number of t
 
 ## Specificities
 
+### Additional Info
+
+### Docker
 ### Monitoring
 
 
