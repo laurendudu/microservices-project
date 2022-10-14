@@ -22,7 +22,6 @@ form_btn.addEventListener("click", (event) => {
         }).then(text => {
             if(text) {
                 // if user exists
-                console.log(text)
                 if (text == "user can login") {
                     updateCookie(username);
                 } else if (text == "user already exists") {
