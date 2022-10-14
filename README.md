@@ -67,15 +67,32 @@ The backend is located in `index.js`, where all the endpoints are defined:
 
 ## Schematic Diagrams ([Mermaid.js](https://mermaid-js.github.io/))
 
+### Sequence Diagram: Initializing the game
+```mermaid
+sequenceDiagram
+    note right of Client: Initializing the game
+
+    Client ->> Motus: /getUsername
+    Motus -->> Client: username
+    Client ->> Score API: /getUser
+    Score API --> Client: user data
+    Client ->> Motus: /word
+    Motus -->> Client: word
+    Client -->> Client: has the player played today? 
+
+    alt Yes
+        Client ->> Client: initGuessing(word)
+        Client ->> Client: initKeyboard()
+    else No
+        Client --> Client: display word and "come back tomorrow"
+    end
+```
+
 ### Sequence Diagram: Playing the game
 
 ```mermaid
 sequenceDiagram
     note right of Client: Playing the game
-    Client ->> Motus: /word
-    Motus -->> Client: word
-    Client ->> Client: initGuessing(word)
-    Client ->> Client: initKeyboard()
 
     loop While guessing
         Client ->> Motus: /word
