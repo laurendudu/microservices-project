@@ -6,6 +6,27 @@ The project is supposed to be a [SUTOM](https://sutom.nocle.fr/#)/[WORDLE](https
 
 Each day, users can guess a word in 6 tries. For each guess the web-app indicates weather the letters are correct or incorrect, depending on the positions and actual entries. 
 
+## How to make it work
+- clone the repository using `GitHub Desktop` or `GitHub Web`
+- get into the project directory 
+
+### Using node
+- motus server
+    - open a terminal
+    - `cd motus`
+    - `node index.js`
+- score server
+    - open a terminal
+    - `cd score`
+    - `node score.js`
+- go to [localhost port 4000](http://localhost:4000/)
+
+### Using Docker
+- `docker-compose up -d`
+- go to [localhost port 4000](http://localhost:4000/)
+
+
+
 ## App Structure
 ### File Tree
 ```shell
@@ -110,26 +131,10 @@ The **score** is the number of won games, **average** is the average number of t
 - `/updateUser/`, updates user data when they win/loose a game
 - `/checkUser/`, checks if a user exists in the database
 
+## Specificities
 
-## How to make it work
+### Monitoring
 
-- clone the repository using `GitHub Desktop` or `GitHub Web`
-- get into the project directory 
-
-### Using node
-- motus server
-    - open a terminal
-    - `cd motus`
-    - `node index.js`
-- score server
-    - open a terminal
-    - `cd score`
-    - `node score.js`
-- go to [localhost port 4000](http://localhost:4000/)
-
-### Using Docker
-- `docker-compose up -d`
-- go to [localhost port 4000](http://localhost:4000/)
 
 ## Schematic Diagrams ([Mermaid.js](https://mermaid-js.github.io/))
 
@@ -230,7 +235,6 @@ sequenceDiagram
 ```
 
 ### Sequence Diagram: Playing the game
-
 ```mermaid
 sequenceDiagram
     note right of Client: Playing the game
