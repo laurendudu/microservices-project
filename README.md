@@ -136,8 +136,19 @@ The **score** is the number of won games, **average** is the average number of t
 ### Additional Info
 
 ### Docker
-### Monitoring
 
+We used Docker, more specifically Docker Compose to dockerize our web app. Our app contains 6 micro services:
+    - motus (node)
+    - score-api (node)
+    - loki 
+    - grafana 
+    - prometheus
+    - node-exporter
+    
+### Haproxy
+
+
+### Monitoring
 
 ## Schematic Diagrams ([Mermaid.js](https://mermaid-js.github.io/))
 
