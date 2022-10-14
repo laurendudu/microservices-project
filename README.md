@@ -150,6 +150,40 @@ We used Docker, more specifically Docker Compose to dockerize our web app. Our a
 
 ### Monitoring
 
+In this project, we setted a requests and logs monitoring thanks to Loki, Prometheus and Grafana.
+
+It can be found at http://localhost:3000
+
+Prometheus is an open-source monetoring service that allows to track the requests done in a server or webapp and do some analysis from it. Each time a client does a requests these metrics are tracked and saved by Prometheus.
+
+We also tried to monitor the logs using Loki but we think we were not able to do because the final connection between the logs and the loki database was not well established.
+
+All the information from Prometheus and Loki can be seen thanks to Grafana's interface.
+<img width="1505" alt="image" src="https://user-images.githubusercontent.com/75457142/195931200-12646900-b802-446f-93d4-99107fff16c6.png">
+
+#### Setting up Grafana
+
+In this project, after the docker-compose.yml is runned, Grafana's interface has to be set up manually. To do so, the following steps have to be followed:
+- go to http://localhost:3000
+- enter admin/admin
+- configuration:
+    - add data source: Loki
+        - set url to http://loki:3100
+        - save 
+    - add data source: prometheus
+        - set url to http://prometheus:9090
+        - save
+
+- dashboard:
+    - new dashboard
+    - new panel
+    - set data source as prometheus
+    - select a metric, in our case we chose the following metric: promhttp_metric_handler_requests_total
+    - turn off node exporter by adding a filter "job != node-exporter"
+    - save
+
+
+
 ## Schematic Diagrams ([Mermaid.js](https://mermaid-js.github.io/))
 
 ### Flowchart: Webapp Structure
