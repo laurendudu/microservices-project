@@ -7,6 +7,7 @@ The project is supposed to be a [SUTOM](https://sutom.nocle.fr/#)/[WORDLE](https
 Each day, users can guess a word in 6 tries. For each guess the web-app indicates weather the letters are correct or incorrect, depending on the positions and actual entries. 
 
 ## App Structure
+### File Tree
 ```shell
 .
 ├── Docker-compose.yml
@@ -53,15 +54,61 @@ This app contains 3 main pages:
 - the game
 - the dashboard
 
-These pages all have a respective tamplate, style sheet and use various scripts which are all located in the `public` folder. This folder is set as the `static` folder thanks to the `Express.js` framework.
+These pages all have a respective template, style sheet and use various scripts which are all located in the `sutom/public` folder. This folder is set as the `static` folder thanks to the `Express.js` framework.
 
-### The Backend
-The backend is located in `index.js`, where all the endpoints are defined:
-- `/` (root), the game in itself
-- `/static/`, containing the static files in the public folder
-- `/login/`, the login page
-- `/word/`, the endpoint containing the word of the day
-- `/score/`, the dashboard
+### The Game Backend
+The backend is located in `sutom/index.js`, where all the endpoints are defined:
+
+#### The endpoints
+- proper to the server
+    - `/static/`, containing the static files in the public folder
+    - `/session/`, which returns a JSON string of the session
+    - `/setsession/`, which sets a username variable in the session
+    
+- pages 
+    - `/` (root), the game in itself
+    - `/login/`, the login page
+    - `/dashboard/`, the dashboard page
+
+- other actions
+    - `/logout/`, which deletes the session
+    - `/word/`, the endpoint containing the word of the day
+    - `/getUsername/`, returns the session username
+
+### The Score API Backend
+The score backend is located in `score/score.js`, where all the endpoints are defined. This backend manages all calls to the databases, which create, read, or update user information.
+
+#### The Databases
+The data is stored in two flatfiles, `users.txt` and `score.txt`. The first is structured such as:
+
+| username | hashed password   |
+|----------|-------------------|
+| user_1   | sd89seb3ie2noihfs |
+| user_2   | seoj308osjbwqiofw |
+| user_3   | asd09b5si3nf9hfps |
+| ...      | ...               |
+
+The password is hashed using `crypto` for security reasons.
+
+The second:
+
+| username | score | average | date       | boolean |
+|----------|-------|---------|------------|---------|
+| user_1   | 3     | 2.5     | 2022-10-14 | false   |
+| user_2   | 7     | 5.4     | 2022-10-09 | true    |
+| user_3   | 2     | 1.2     | 2022-09-03 | true    |
+| ...      | ...   | ...     | ...        | ...     |
+
+The **score** is the number of won games, **average** is the average number of tries it took over the multiple games. The **date** represents the last time a user played and the **boolean** if he won on that day. 
+
+
+#### The endpoints
+
+- `/getUser/`, returns all user data from `score.txt`
+- `/intializeUser/`, creates a new user in the database with a score and average of 0
+- `/userRegistration/`, hashes the password input from the user and saves it in `users.txt` along with the username
+- `/updateUser/`, updates user data when they win/loose a game
+- `/checkUser/`, checks if a user exists in the database
 
 
 ## How to make it work
@@ -69,7 +116,7 @@ The backend is located in `index.js`, where all the endpoints are defined:
 - clone the repository using `GitHub Desktop` or `GitHub Web`
 - get into the project directory 
 
-#### Using node
+### Using node
 - motus server
     - open a terminal
     - `cd motus`
@@ -80,7 +127,7 @@ The backend is located in `index.js`, where all the endpoints are defined:
     - `node score.js`
 - go to [localhost port 4000](http://localhost:4000/)
 
-#### Using Docker
+### Using Docker
 - `docker-compose up -d`
 - go to [localhost port 4000](http://localhost:4000/)
 
