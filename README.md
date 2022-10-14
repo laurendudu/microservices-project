@@ -138,12 +138,12 @@ The **score** is the number of won games, **average** is the average number of t
 ### Docker
 
 We used Docker, more specifically Docker Compose to dockerize our web app. Our app contains 6 micro services:
-    - motus (node)
-    - score-api (node)
-    - loki 
-    - grafana 
-    - prometheus
-    - node-exporter
+- motus (node)
+- score-api (node)
+- loki 
+- grafana 
+- prometheus
+- node-exporter
     
 ### Haproxy
 
