@@ -24,7 +24,6 @@ register_btn.addEventListener("click", () => {
             }
         }).then(text => {
             if(text) {
-                console.log(text)
                 if (text == "user already exists") {
                     window.alert("Please chose another username!")
                 } else if (text == "user can login") {

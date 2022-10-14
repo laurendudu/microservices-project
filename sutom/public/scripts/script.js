@@ -29,6 +29,7 @@ fetch('/getUsername/')
         }
     }).then(text => {
         if(text) {
+            date = text.split(';')[3]
             boolean = text.split(";")[4]
             
             fetch('/word/')
@@ -39,13 +40,16 @@ fetch('/getUsername/')
             }).then(text => {
                 if(text) {
                     word = text;
-                    if (boolean == 'false') {      
-                        initGuessing(word);
-                        initKeyboard();
-                    } else{
+                    let currentDate = new Date()
+                    currentDate = currentDate.toISOString().split('T')[0]
+                    console.log(date, currentDate)
+                    if (boolean == 'true' && date == currentDate) { 
                         messageDiv = document.getElementById("message")
                         messageDiv.innerHTML = `<p>La reponse etait <span>${word}</span>, reviens demain pour un max de fun.</p>`
-                        document.getElementById("button").disabled = true;
+                        document.getElementById("button").disabled = true;     
+                    } else {
+                        initGuessing(word);
+                        initKeyboard();
                     }
                 }
             }).catch(err => console.error(err));
@@ -183,7 +187,6 @@ dashboard.addEventListener('click', (event) => {
 
 // update user score
 function updateScore(option, username, score, avg) {
-    console.log('loool')
     let currentDate = new Date()
     currentDate = currentDate.toISOString().split('T')[0]
 
