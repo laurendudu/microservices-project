@@ -4,12 +4,14 @@ const port = process.env.PORT || 4500
 const os = require("os");
 const { createHash } = require('crypto');
 
+
 const {readFileSync, promises: fsPromises} = require('fs');
 var fs = require('fs')
 
 
 // Main endpoint
 app.get('/', (req, res) => {
+
 })
 
 
@@ -133,6 +135,7 @@ function updateUser(username, score, avg, date, boolean) {
 }
 
 function checkUser(username, password) {
+
     const file = readFileSync('data/users.txt', 'utf-8');
     const users = file.split(/\r?\n/);
   

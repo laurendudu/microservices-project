@@ -18,6 +18,9 @@
   "homepage": "https://github.com/laurendudu/microservices-project#readme",
   "dependencies": {
     "express": "^4.18.1",
-    "express-session": "^1.17.3"
+    "express-session": "^1.17.3",
+    "winston": "^3.8.2",
+    "winston-loki": "^6.0.6"
+
   }
 }

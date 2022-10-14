@@ -2,12 +2,30 @@ const express = require('express')
 const app = express()
 const port = process.env.PORT || 4000
 const os = require("os");
-const session = require("express-session")
+const session = require("express-session"); 
+//const LokiTransport = require("winston-loki");
+const {createLogger, transports} = require("winston")
+const loki_uri = process.env.LOKI || "http://127.0.0.1:3100";
 
+const logConfiguration = {
+  transports : [
+    new transports.Http({
+      host: loki_uri,
+      json: true,
+      labels :{job: 'winston-loki-example'}
+    })
+  ]
+};
+
+const logger = createLogger(logConfiguration)
 const {readFileSync, promises: fsPromises} = require('fs');
 
 var words;
 var randomWord;
+var i=0
+
+
+
 
 
 // Setup static files
@@ -31,6 +49,7 @@ app.get('/session', (req, res) => {
 app.get('/setsession', (req, res) => {
   username = req.query.username
   req.session.username = username
+  logger.info({ message: 'URL '+req.url , labels: { 'url': req.url, 'user':username } })
   res.send(JSON.stringify(req.session))
   
 })
@@ -46,6 +65,7 @@ app.get('/logout', (req, res) => {
 app.get('/', (req, res) => {
   if (req.session.username) {
     res.sendFile(__dirname + '/public/templates/index.html')
+
   } else {
     res.redirect("/login")
   }
@@ -74,7 +94,13 @@ app.get('/getUsername/', (req, res) => {
 
 // score endpoint
 app.get('/dashboard/', (req, res) => {
-  res.sendFile(__dirname + '/public/templates/dashboard.html')
+  if (req.session.username) {
+    res.sendFile(__dirname + '/public/templates/dashboard.html')
+  } else {
+    res.sendFile(__dirname + '/public/templates/login.html')
+  
+   }
+
 }
 )
 
