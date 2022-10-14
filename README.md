@@ -80,10 +80,10 @@ sequenceDiagram
     Motus -->> Client: word
     Client -->> Client: has the player played today? 
 
-    alt Yes
+    alt No
         Client ->> Client: initGuessing(word)
         Client ->> Client: initKeyboard()
-    else No
+    else Yes
         Client --> Client: display word and "come back tomorrow"
     end
 ```
