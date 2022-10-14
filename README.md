@@ -7,30 +7,44 @@ The project is supposed to be a [SUTOM](https://sutom.nocle.fr/#)/[WORDLE](https
 Each day, users can guess a word in 6 tries. For each guess the web-app indicates weather the letters are correct or incorrect, depending on the positions and actual entries. 
 
 ## App Structure
-```
+```shell
+.
 ├── Docker-compose.yml
-├── Dockerfile
-├── data
-│   ├── liste_francais.txt
-│   └── liste_francais_utf8.txt
-├── haproxy.conf
-├── index.js
-├── package.json
-└── public
-    ├── scripts
-    │   ├── keyboard.js
-    │   ├── login.js
-    │   ├── logout.js
-    │   ├── score.js
-    │   └── script.js
-    ├── styles
-    │   ├── login-logout.css
-    │   ├── score.css
-    │   └── style.css
-    └── templates
-        ├── index.html
-        ├── login.html
-        └── score.html
+├── README.md
+├── score
+│   ├── Dockerfile
+│   ├── data
+│   │   ├── score.txt
+│   │   └── users.txt
+│   ├── package-lock.json
+│   ├── package.json
+│   └── score.js
+└── sutom
+    ├── Dockerfile
+    ├── data
+    │   ├── liste_francais.txt
+    │   └── liste_francais_utf8.txt
+    ├── haproxy.conf
+    ├── index.js
+    ├── package-lock.json
+    ├── package.json
+    └── public
+        ├── scripts
+        │   ├── dashboard.js
+        │   ├── keyboard.js
+        │   ├── login.js
+        │   ├── logout.js
+        │   ├── register.js
+        │   ├── script.js
+        │   └── users.js
+        ├── styles
+        │   ├── dashboard.css
+        │   ├── login-logout.css
+        │   └── style.css
+        └── templates
+            ├── dashboard.html
+            ├── index.html
+            └── login.html
 ```
 
 ### The Main Pages
@@ -53,19 +67,99 @@ The backend is located in `index.js`, where all the endpoints are defined:
 ## How to make it work
 
 - clone the repository using `GitHub Desktop` or `GitHub Web`
-- get into the right directory 
-- open a terminal
+- get into the project directory 
 
 #### Using node
-- `node index.js`
-- go to `localhost:4000`
+- motus server
+    - open a terminal
+    - `cd motus`
+    - `node index.js`
+- score server
+    - open a terminal
+    - `cd score`
+    - `node score.js`
+- go to [localhost port 4000](http://localhost:4000/)
 
 #### Using Docker
-- `docker build --tag sutom .`
 - `docker-compose up -d`
-- go to `localhost:4000`
+- go to [localhost port 4000](http://localhost:4000/)
 
 ## Schematic Diagrams ([Mermaid.js](https://mermaid-js.github.io/))
+
+### Flowchart: Webapp Structure
+```mermaid
+graph TD
+    A("/") -->|logged in| B(index.html)
+    B --> |logout-btn| A
+
+    A("/") -->|not logged in| C(login.html)
+    C --> |login-btn / register-btn|B
+
+    B --> |dashboard-btn| D("dashboard.html")
+    D --> |game-btn| B
+```
+
+### Sequence Diagram: Login Redirection
+```mermaid
+sequenceDiagram
+    note right of Client: Login redirection
+
+    Motus -->> Motus: get session username
+    
+    alt Username exists
+        Motus ->> Client: index.html
+    else Username does not exist
+        Motus ->> Client: login.html
+    end
+```
+
+### Sequence Diagram: Login
+```mermaid
+sequenceDiagram
+    note right of Client: Login
+
+    Motus ->> Client: login.html
+    Client --> Client: get user input
+    Client ->> Score API: /checkUser/?data=user_input
+
+    alt username and password is correct
+        Score API ->> Client: "user can login"
+        Client ->> Motus: /setsession
+        Client ->> Motus: /
+        Motus ->> Client: index.html
+    else password is incorrect
+        Score API ->> Client: "user already exists"
+        Client --> Client: alert password is incorrect
+    else username does not exist
+        Score API ->> Client: "false"
+        Client --> Client: alert username does not exist
+        Client --> Client: alert suggest registering
+    end
+```
+
+### Sequence Diagram: Register
+```mermaid
+sequenceDiagram
+    note right of Client: Register
+
+    Motus ->> Client: login.html
+    Client --> Client: get user input
+    Client ->> Score API: /checkUser/?data=user_input
+
+    alt another user has the same username
+        Score API ->> Client: "user already exists"
+        Client --> Client: alert username already taken
+    else user has already registered
+        Score API ->> Client: "user can login"
+        Client --> Client: alert please login
+    else user does not exist
+        Score API ->> Client: "false"
+        Client ->> Motus: /setsession
+        Client ->> Motus: /
+        Motus ->> Client: index.html
+    end
+```
+
 
 ### Sequence Diagram: Initializing the game
 ```mermaid
@@ -133,4 +227,13 @@ sequenceDiagram
     Client ->> Score API: /getUser/?username=username
     Score API -->> Client: user data
     Client -->> Client: display user data
+```
+
+### Sequence Diagram: Logout
+```mermaid
+sequenceDiagram 
+    note right of Client: Logout
+    Client ->> Motus: /logout
+    Motus -->> Motus: destroy session
+    Client --> Client: redirect login.html 
 ```

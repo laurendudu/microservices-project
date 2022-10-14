@@ -144,9 +144,9 @@ function checkUser(username, password) {
         for (user of users) {
             var username_db = user.split(';')[0];
             var password_db = user.split(';')[1];
-            if (username_db == username && password_db==safe_password) {
+            if (username_db == username && password_db == safe_password) {
                 return 'user can login'
-            } else if (username_db==username){
+            } else if (username_db == username){
               return 'user already exists'
             }
         }
