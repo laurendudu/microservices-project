@@ -144,9 +144,6 @@ We used Docker, more specifically Docker Compose to dockerize our web app. Our a
 - grafana 
 - prometheus
 - node-exporter
-    
-### Haproxy
-
 
 ### Monitoring
 
